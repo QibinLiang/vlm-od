@@ -1,0 +1,21 @@
+object_detection_model: owlv2 # options: owlv2, grounding-dino. grounding-dino is untested
+input_folder: "imgs" # used for testing
+output_folder: "result/owlv2_single_step" # used for testing
+batch_size: 2 # used for testing
+model_config:
+  model_name: google/owlv2-base-patch16-ensemble
+  model_device: "cuda:0"
+  quant: True
+  strategy: "single" # for advanced feature, not available for public
+  threshold: 0.08
+  prompts:
+    - ["A tongue"] # initial prompt
+  topk: 3
+  use_onnx: false 
+  onnx_path: /home/nn/owlv2_onnx_example/onnx_owlv2/model.onnx
+  onnx_optimize: false # take effect when using ONNX
+  use_optimized_model: false # needs to export the optimized onnx model
+  onnx_optimized_path: /home/nn/owlv2_onnx_example/onnx_owlv2/model_optimized.onnx
+  dtype: fp16 # recommanded if precision isn't critical
+  use_fa2: false # unstable feature, may cause issues when using masks
+
